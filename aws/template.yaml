@@ -1,0 +1,48 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: CS4296 Serverless Image Processing - AWS Lambda + API Gateway
+
+Globals:
+  Function:
+    Timeout: 60
+    Runtime: python3.9
+
+Parameters:
+  MemorySize:
+    Type: Number
+    Default: 512
+    AllowedValues: [128, 256, 512, 1024, 2048]
+    Description: Lambda memory in MB - vary this for benchmarking
+
+Resources:
+
+  ImageBenchmarkBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub "cs4296-image-benchmark-${AWS::AccountId}"
+
+  ImageProcessorFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: .
+      Handler: lambda_function.lambda_handler
+      MemorySize: !Ref MemorySize
+      # Learner Lab: cannot create IAM roles, so use the pre-existing LabRole
+      Role: !Sub "arn:aws:iam::${AWS::AccountId}:role/LabRole"
+      Events:
+        ProcessImageApi:
+          Type: Api
+          Properties:
+            Path: /process
+            Method: POST
+
+Outputs:
+  ApiEndpoint:
+    Description: API Gateway endpoint URL
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/process"
+  FunctionArn:
+    Description: Lambda Function ARN
+    Value: !GetAtt ImageProcessorFunction.Arn
+  BucketName:
+    Description: S3 bucket for benchmark images
+    Value: !Ref ImageBenchmarkBucket
