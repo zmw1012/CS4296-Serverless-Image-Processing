@@ -87,7 +87,8 @@ def invoke_gcp(url, key):
     total_latency = round(time.time() - t_start, 4)
 
     response.raise_for_status()
-    data = response.json()
+    raw_data = response.json()
+    data=json.loads(raw_data.get("body", "{}")) 
 
     return {
         "total_latency_seconds": total_latency,
