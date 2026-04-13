@@ -5,12 +5,12 @@ Description: CS4296 Serverless Image Processing - AWS Lambda + API Gateway
 Globals:
   Function:
     Timeout: 60
-    Runtime: python3.9
+    Runtime: python3.11
 
 Parameters:
   MemorySize:
     Type: Number
-    Default: 512
+    Default: 1024
     AllowedValues: [128, 256, 512, 1024, 2048]
     Description: Lambda memory in MB - vary this for benchmarking
 
