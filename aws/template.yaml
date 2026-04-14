@@ -10,7 +10,7 @@ Globals:
 Parameters:
   MemorySize:
     Type: Number
-    Default: 1024
+    Default: 512
     AllowedValues: [128, 256, 512, 1024, 2048]
     Description: Lambda memory in MB - vary this for benchmarking
 
