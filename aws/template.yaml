@@ -5,7 +5,7 @@ Description: CS4296 Serverless Image Processing - AWS Lambda + API Gateway
 Globals:
   Function:
     Timeout: 60
-    Runtime: python3.9
+    Runtime: python3.11
 
 Parameters:
   MemorySize:
