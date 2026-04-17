@@ -47,9 +47,12 @@ Images are read from Google Cloud Storage (GCS) (not sent in the request body) t
  From the `/gcp` directory: 
  
  ### Deploy Cloud Run Service (manual) 
+
+Rename `GoogleCloud_function.py` as `main.py`
+
  ```bash 
  # Gcloud run deploy 
- gcloud functions deploy process_image --runtime python311 --trigger-http --entry-point process_image --set-env-vars INPUT_BUCKET=%BUCKET_NAME% --allow-unauthenticated --memory 1Gi --timeout 60s
+ gcloud functions deploy process_image --runtime python311 --trigger-http --entry-point process_image --set-env-vars INPUT_BUCKET=%BUCKET_NAME% --allow-unauthenticated --memory 512MB --timeout 60s
  ``` 
  
 ## Upload Dataset
