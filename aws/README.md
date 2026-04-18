@@ -10,6 +10,8 @@ Images are read from S3 (not sent in the request body) to support large files (5
 
 ## Prerequisites
 
+> **AWS Academy / Learner Lab only**: The SAM template hardcodes `LabRole` as the Lambda execution role (`arn:aws:iam::<account-id>:role/LabRole`). This role is pre-created in AWS Academy environments. Deployment will fail on a standard AWS account unless you update the `Role` field in `template.yaml` to an existing IAM role ARN that has S3 read permissions.
+
 1. [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html) installed and configured (`aws configure`)
 2. [AWS SAM CLI](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-sam-cli.html) installed
 3. An S3 bucket for SAM deployment artifacts (one-time setup):
@@ -81,8 +83,10 @@ Redeploy with different memory sizes to test performance:
 
 ```bash
 sam deploy --parameter-overrides MemorySize=128
+sam deploy --parameter-overrides MemorySize=256
 sam deploy --parameter-overrides MemorySize=512
 sam deploy --parameter-overrides MemorySize=1024
+sam deploy --parameter-overrides MemorySize=2048
 ```
 
 ## Teardown
